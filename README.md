@@ -1,0 +1,1 @@
+# Link to github pages: https://damasutsu.github.io/anitrax-web

@@ -1,0 +1,34 @@
+*,
+*::before,
+*::after {
+  line-height: 1.25em;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  height: 100%;
+}
+
+body {
+  background-color: #10110e;
+  color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  vertical-align: middle;
+}
+
+i.fa::before {
+  font-size: 1.5rem;
+}
