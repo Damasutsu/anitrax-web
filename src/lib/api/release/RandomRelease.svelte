@@ -1,8 +1,11 @@
 <script lang="ts" context="module">
   async function getRandom() {
-    return await fetch(
+    const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/release/random`
-    ).then((response) => response.json())
+    )
+    const json = await response.json()
+
+    return json
   }
 
   export { getRandom }
