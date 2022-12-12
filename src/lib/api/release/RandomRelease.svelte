@@ -1,5 +1,5 @@
-<script lang="ts" context="module">
-  async function getRandom(): Promise<Object> {
+<script context="module">
+  async function getRandom() {
     const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/release/random`
     )
@@ -11,7 +11,7 @@
   export { getRandom }
 </script>
 
-<script lang="ts">
+<script>
   import { onMount, createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()

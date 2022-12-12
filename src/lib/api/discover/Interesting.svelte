@@ -1,5 +1,5 @@
-<script lang="ts" context="module">
-  async function getInteresting(): Promise<Object> {
+<script context="module">
+  async function getInteresting() {
     const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/discover/interesting`
     )
@@ -10,7 +10,7 @@
   export { getInteresting }
 </script>
 
-<script lang="ts">
+<script>
   import { onMount, createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import Navigate from '../router/Navigate.svelte'
   import SearchIcon from './SearchIcon.svelte'
   import SearchInput from './SearchInput.svelte'

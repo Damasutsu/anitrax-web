@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   // @ts-nocheck
 
   import 'swiper/css'

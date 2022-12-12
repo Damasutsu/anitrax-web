@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import SearchIcon from './SearchIcon.svelte'
 </script>
 

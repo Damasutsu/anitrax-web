@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import Release from '../api/release/Release.svelte'
   import Loading from '../components/Loading.svelte'
 

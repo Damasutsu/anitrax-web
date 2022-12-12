@@ -1,5 +1,5 @@
-<script lang="ts" context="module">
-  async function getById(id: Number | String): Promise<Object> {
+<script context="module">
+  async function getById(id)  {
     const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/release/${id}`
     )
@@ -10,7 +10,7 @@
   export { getById }
 </script>
 
-<script lang="ts">
+<script>
   import { onMount, createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()

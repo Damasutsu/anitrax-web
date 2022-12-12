@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import { onMount } from 'svelte'
   import { getRandom as getRandomRelease } from '../api/release'
   import Loading from '../components/Loading.svelte'
