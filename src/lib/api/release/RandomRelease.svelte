@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  async function getRandom(): Promise<JSON> {
+  async function getRandom(): Promise<Object> {
     const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/release/random`
     )

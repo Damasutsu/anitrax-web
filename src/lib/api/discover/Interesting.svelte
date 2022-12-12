@@ -1,10 +1,9 @@
 <script lang="ts" context="module">
-  async function getInteresting() {
+  async function getInteresting(): Promise<Object> {
     const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/discover/interesting`
     )
     const json = await response.json()
-
     return json
   }
 

@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  async function getById(id: Number | String): Promise<JSON> {
+  async function getById(id: Number | String): Promise<Object> {
     const response = await fetch(
       `${import.meta.env.VITE_FULL_API_URL}/release/${id}`
     )
