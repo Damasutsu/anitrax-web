@@ -1,9 +1,7 @@
 <script lang="ts" context="module">
   async function getRandom() {
     return await fetch(
-      `${import.meta.env.VITE_CORS_BYPASS}${
-        import.meta.env.VITE_API_URL
-      }/release/random`
+      `${import.meta.env.VITE_FULL_API_URL}/release/random`
     ).then((response) => response.json())
   }
 
@@ -14,8 +12,6 @@
   import { onMount, createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()
-
-  export let id = null
 
   let release = null
   let code = 0
@@ -29,9 +25,8 @@
   }
 
   onMount(async () => {
-    if (id !== null) {
-      await getRandom().then(setProperties)
-    }
+    const properties = await getRandom()
+    setProperties(properties)
   })
 </script>
 

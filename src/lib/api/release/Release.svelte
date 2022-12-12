@@ -1,10 +1,11 @@
 <script lang="ts" context="module">
   async function getById(id) {
-    return await fetch(
-      `${import.meta.env.VITE_CORS_BYPASS}${
-        import.meta.env.VITE_API_URL
-      }/release/${id}`
-    ).then((response) => response.json())
+    const response = await fetch(
+      `${import.meta.env.VITE_FULL_API_URL}/release/${id}`
+    )
+    const json = await response.json()
+
+    return json
   }
 
   export { getById }
@@ -29,9 +30,9 @@
   }
 
   onMount(async () => {
-    if (id !== null) {
-      await getById(id).then(setProperties)
-    }
+    if (id === null) return
+    const properties = await getById(id)
+    setProperties(properties)
   })
 </script>
 

@@ -1,10 +1,11 @@
 <script lang="ts" context="module">
   async function getInteresting() {
-    return await fetch(
-      `${import.meta.env.VITE_CORS_BYPASS}${
-        import.meta.env.VITE_API_URL
-      }/discover/interesting`
-    ).then((response) => response.json())
+    const response = await fetch(
+      `${import.meta.env.VITE_FULL_API_URL}/discover/interesting`
+    )
+    const json = await response.json()
+
+    return json
   }
 
   export { getInteresting }
