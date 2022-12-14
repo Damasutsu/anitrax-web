@@ -1,3 +1,5 @@
+import requests from '../utils'
+
 async function getByFilter({
   page = 0,
   country = null,
@@ -38,19 +40,10 @@ async function getByFilter({
     is_genres_exclude_mode_enabled
   }
 
-  const response = await fetch(
+  return await requests.post(
     `${import.meta.env.VITE_FULL_API_URL}/filter/${page}`,
-    {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }
+    data
   )
-  const json = await response.json()
-  return json
 }
 
 export { getByFilter }

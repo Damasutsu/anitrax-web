@@ -3,57 +3,52 @@
 
   import 'swiper/css'
 
-  import { getById as getReleaseById } from '../api/release'
-  import { getInteresting } from '../api/discover'
-  import { getByFilter } from '../api/filter'
+  import {
+    getById as getReleaseById,
+    getInteresting,
+    getByFilter
+  } from '../api'
   import Loading from '../components/Loading.svelte'
 
   import { Swiper, SwiperSlide } from 'swiper/svelte'
 
   import { Autoplay } from 'swiper'
   import Navigate from '../router/Navigate.svelte'
+  import { onMount } from 'svelte'
 
   let interestingReleases = []
-
-  getInteresting().then((interesting) => {
-    const promises = []
-    interesting.content.forEach((release) => {
-      promises.push(getReleaseById(release.action))
-    })
-    Promise.all(promises).then((releases) => {
-      releases.forEach(({ release }) => {
-        interestingReleases.push(release)
-      })
-      interestingReleases = [...interestingReleases]
-    })
-  })
-
   let bestReleases = []
-
-  getByFilter({
-    page: 0,
-    sort: 1,
-    start_year: 2022,
-    end_year: 2022
-  }).then((best) => {
-    const releases = best.content
-    releases.forEach((release) => {
-      bestReleases.push(release)
-    })
-    bestReleases = [...bestReleases]
-  })
-
   let ongoingReleases = []
 
-  getByFilter({
-    page: 0,
-    broadcast: 0
-  }).then((ongoing) => {
-    const releases = ongoing.content
-    releases.forEach((release) => {
-      ongoingReleases.push(release)
+  onMount(() => {
+    getInteresting().then((interesting) => {
+      const promises = []
+      interesting.content.forEach((release) => {
+        promises.push(getReleaseById(release.action))
+      })
+      Promise.all(promises).then((releases) => {
+        releases.forEach(({ release }) => {
+          interestingReleases.push(release)
+        })
+        interestingReleases = [...interestingReleases]
+      })
     })
-    ongoingReleases = [...ongoingReleases]
+
+    getByFilter({
+      page: 0,
+      sort: 1,
+      start_year: 2022,
+      end_year: 2022
+    }).then((best) => {
+      bestReleases = [...best.content]
+    })
+
+    getByFilter({
+      page: 0,
+      status_id: 2
+    }).then((ongoing) => {
+      ongoingReleases = [...ongoing.content]
+    })
   })
 </script>
 
@@ -191,9 +186,6 @@
   :global(.swiper-slide) .poster {
     -webkit-user-select: none;
     user-select: none;
-    top: 0;
-    left: 0;
-    right: 0;
     width: 100%;
     height: 250px;
     margin-bottom: 1.25rem;
@@ -272,7 +264,6 @@
     z-index: 1;
     max-width: 25%;
     height: initial;
-    left: auto;
   }
 
   .info {
@@ -336,7 +327,7 @@
   }
 
   .ongoing {
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
   }
 
   @media (min-width: 992px) {
