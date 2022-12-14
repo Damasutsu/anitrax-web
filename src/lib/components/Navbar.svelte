@@ -10,7 +10,7 @@
   <div class="header-content">
     <Navigate to="/" class="header-brand">
       <div class="brand-icon" />
-      <div class="brand-title">PornFree</div>
+      <div class="brand-title">Ani<span class="brand">Trax</span></div>
     </Navigate>
     {#if isInSearch}
       <SearchInput />
@@ -99,7 +99,7 @@
   }
 
   .brand-icon {
-    width: 2rem;
+    width: 2.5rem;
     aspect-ratio: 1/1;
     background-image: url('/favicon.png');
     background-size: contain;
@@ -108,6 +108,14 @@
 
   .brand-title {
     font-size: 1.5rem;
+  }
+
+  .brand {
+    color: #d48f30;
+    background: white;
+    padding: 0rem 0.15rem;
+    border-radius: 0.5rem;
+    margin-left: 0.1rem;
   }
 
   .links {

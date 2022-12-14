@@ -5,14 +5,13 @@
 
   import { getById as getReleaseById } from '../api/release'
   import { getInteresting } from '../api/discover'
+  import { getByFilter } from '../api/filter'
   import Loading from '../components/Loading.svelte'
 
   import { Swiper, SwiperSlide } from 'swiper/svelte'
 
-  import { Autoplay, Navigation } from 'swiper'
+  import { Autoplay } from 'swiper'
   import Navigate from '../router/Navigate.svelte'
-
-  let isLoaded = false
 
   let interestingReleases = []
 
@@ -28,6 +27,34 @@
       interestingReleases = [...interestingReleases]
     })
   })
+
+  let bestReleases = []
+
+  getByFilter({
+    page: 0,
+    sort: 1,
+    start_year: 2022,
+    end_year: 2022
+  }).then((best) => {
+    const releases = best.content
+    releases.forEach((release) => {
+      bestReleases.push(release)
+    })
+    bestReleases = [...bestReleases]
+  })
+
+  let ongoingReleases = []
+
+  getByFilter({
+    page: 0,
+    broadcast: 0
+  }).then((ongoing) => {
+    const releases = ongoing.content
+    releases.forEach((release) => {
+      ongoingReleases.push(release)
+    })
+    ongoingReleases = [...ongoingReleases]
+  })
 </script>
 
 <svelte:head>
@@ -37,58 +64,96 @@
 {#if interestingReleases.length === 0}
   <Loading />
 {:else}
-  <div class="interesting-slider">
+  <section class="interesting-slider">
     <Swiper
       loop={true}
       autoplay={{
         disableOnInteraction: false,
         pauseOnMouseEnter: true
       }}
-      navigation={{
-        prevEl: '.interesting-slider .swiper-control-prev',
-        nextEl: '.interesting-slider .swiper-control-next'
-      }}
-      modules={[Navigation, Autoplay]}>
+      modules={[Autoplay]}>
       {#each interestingReleases as release}
-        <SwiperSlide>
+        <SwiperSlide class="interesting-slide">
           <div class="slide-background">
             <img
               class="poster-back"
               src={release.image}
               alt={release.title_ru} />
           </div>
-          <div class="slider_wrappper">
-            <div class="slide_content">
+          <div class="slider-wrappper container">
+            <div class="content">
               <img class="poster" src={release.image} alt={release.title_ru} />
               <div class="info">
-                <div class="slider_wrappper">
-                  <div class="title-ru" title={release.title_ru}>
+                <div class="slider-wrappper">
+                  <h1 class="title-ru" title={release.title_ru}>
                     {release.title_ru}
-                  </div>
-                  <div class="title-original" title={release.title_original}>
+                  </h1>
+                  <h2 class="title-original" title={release.title_original}>
                     {release.title_original}
-                  </div>
-                  <div class="description">
+                  </h2>
+                  <p class="description">
                     {release.description}
-                  </div>
+                  </p>
                 </div>
               </div>
               <Navigate to="/release/{release.id}" class="watch"
-                >Смотреть онлайн</Navigate>
+                >Смотреть</Navigate>
             </div>
           </div>
         </SwiperSlide>
       {/each}
     </Swiper>
-    <div class="swiper-controls">
-      <div class="swiper-control-prev">
-        <i class="fa fa-arrow-circle-o-left" />
-      </div>
-      <div class="swiper-control-next">
-        <i class="fa fa-arrow-circle-o-right" />
-      </div>
-    </div>
-  </div>
+  </section>
+  {#if bestReleases.length !== 0}
+    <section class="best container">
+      <h1>Лучшие в этом году</h1>
+      <section class="best-slider">
+        <Swiper slidesPerView={'auto'} spaceBetween={36}>
+          {#each bestReleases as release}
+            <SwiperSlide title={release.title_ru}>
+              <Navigate to="/release/{release.id}">
+                <img
+                  class="poster"
+                  src={release.image}
+                  alt={release.title_ru} />
+                <span class="title-ru" title={release.title_ru}>
+                  {release.title_ru}
+                </span>
+                <span class="title-original" title={release.title_original}>
+                  {release.title_original}
+                </span>
+              </Navigate>
+            </SwiperSlide>
+          {/each}
+        </Swiper>
+      </section>
+    </section>
+  {/if}
+  {#if ongoingReleases.length !== 0}
+    <section class="ongoing container">
+      <h1>Сейчас выходят</h1>
+      <section class="ongoing-slider">
+        <Swiper slidesPerView={'auto'} spaceBetween={36}>
+          {#each ongoingReleases as release}
+            <SwiperSlide title={release.title_ru}>
+              <Navigate to="/release/{release.id}">
+                <img
+                  class="poster"
+                  src={release.image}
+                  alt={release.title_ru} />
+                <span class="title-ru" title={release.title_ru}>
+                  {release.title_ru}
+                </span>
+                <span class="title-original" title={release.title_original}>
+                  {release.title_original}
+                </span>
+              </Navigate>
+            </SwiperSlide>
+          {/each}
+        </Swiper>
+      </section>
+    </section>
+  {/if}
 {/if}
 
 <style>
@@ -99,7 +164,7 @@
     display: flex;
   }
 
-  .interesting-slider :global(.swiper-slide) {
+  .interesting-slider :global(.interesting-slide) {
     overflow: hidden;
     max-height: 700px;
     -webkit-mask: linear-gradient(
@@ -111,11 +176,43 @@
     mask: linear-gradient(180deg, white 0%, white 90%, transparent 100%);
   }
 
+  :global(.swiper-slide) {
+    width: 180px;
+  }
+
+  :global(.swiper-slide) > :global(a) {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 320px;
+    overflow: hidden;
+  }
+
+  :global(.swiper-slide) .poster {
+    -webkit-user-select: none;
+    user-select: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1.25rem;
+    border-radius: 0.75rem;
+  }
+
+  :global(.swiper-slide) .title-ru {
+    font-size: 1.125rem;
+  }
+
+  :global(.swiper-slide) .title-original {
+    font-size: 1rem;
+    opacity: 0.5;
+  }
+
   .slide-background {
     pointer-events: none;
     -webkit-user-select: none;
     user-select: none;
-    height: 100vh;
   }
 
   .slide-background::after {
@@ -136,7 +233,7 @@
   }
 
   .poster-back {
-    z-index: -1;
+    height: 100%;
     width: 100%;
     filter: blur(0.5rem) contrast(0.75);
     transform: scale(1.1);
@@ -145,27 +242,28 @@
     transition-duration: 0.2s;
   }
 
-  .slider_wrappper {
-    width: 100%;
+  .container {
     max-width: 1500px;
-    height: 100%;
+    width: 100%;
     margin: 0 auto;
+  }
+
+  .slider-wrappper {
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
   }
 
-  .slide_content {
+  .content {
     position: relative;
     margin-left: 6rem;
     margin-right: 2rem;
     height: 100%;
   }
 
-  .poster {
-    -webkit-user-select: none;
-    user-select: none;
+  :global(.interesting-slide) .poster {
     max-height: 80%;
     position: absolute;
     right: 10%;
@@ -173,6 +271,8 @@
     transform: translateY(-50%);
     z-index: 1;
     max-width: 25%;
+    height: initial;
+    left: auto;
   }
 
   .info {
@@ -188,23 +288,26 @@
     mask: linear-gradient(180deg, white 0%, white 30%, transparent 45%);
   }
 
-  .title-ru {
+  h1 {
+    margin-bottom: 1.25rem;
+  }
+
+  :global(.interesting-slide) .title-ru {
+    margin-bottom: 0;
     font-size: 2.5em;
     font-weight: 700;
   }
 
   .title-ru,
   .title-original {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    display: block;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .title-original {
+  :global(.interesting-slide) .title-original {
     font-size: 1.5em;
-    opacity: 0.5;
   }
 
   .description {
@@ -220,7 +323,7 @@
     font-weight: 700;
     position: absolute;
     bottom: 25%;
-    padding: 1.25em 1.5em;
+    padding: 1.25em 3.5em;
     transform: translateY(50%);
     background: #d48f30;
     border-radius: 0.625rem;
@@ -228,39 +331,12 @@
     user-select: none;
   }
 
-  .swiper-controls {
-    z-index: 1;
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    width: 7rem;
-    right: 2.5rem;
-    bottom: 15%;
-    transform: translateY(50%);
+  .best {
+    margin-bottom: 2rem;
   }
 
-  .swiper-controls > .swiper-control-prev,
-  .swiper-controls > .swiper-control-next {
-    width: 2.5rem;
-    aspect-ratio: 1/1;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.1s ease-in-out;
-  }
-
-  .swiper-controls > .swiper-control-prev:hover,
-  .swiper-controls > .swiper-control-next:hover {
-    opacity: 1;
-  }
-
-  .swiper-controls > .swiper-control-prev:active,
-  .swiper-controls > .swiper-control-next:active {
-    opacity: 0.5;
-  }
-
-  .swiper-controls > .swiper-control-prev > i.fa::before,
-  .swiper-controls > .swiper-control-next > i.fa::before {
-    font-size: 2.5rem;
+  .ongoing {
+    margin-bottom: 2rem;
   }
 
   @media (min-width: 992px) {
@@ -273,20 +349,21 @@
     .info {
       max-width: 100%;
       font-size: 0.75rem;
+      transform: translateY(10%);
     }
 
-    .poster {
+    :global(.interesting-slide) .poster {
       display: none;
     }
   }
 
   @media (max-width: 575.98px) {
-    .slider_wrappper {
+    .slider-wrappper {
       margin: 0;
       padding: 0 1rem;
     }
 
-    .slide_content {
+    .content {
       margin: 0;
     }
 
@@ -299,7 +376,7 @@
     }
 
     .info {
-      transform: translateY(10%);
+      transform: translateY(5%);
     }
 
     :global(.watch) {
@@ -311,7 +388,7 @@
 
   @media (max-width: 319.98px) {
     :global(.watch) {
-      font-size: 0.5875rem;
+      font-size: 0.6rem;
     }
   }
 </style>
