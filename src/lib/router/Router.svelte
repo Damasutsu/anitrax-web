@@ -28,7 +28,7 @@
     routes.some((route, index) => {
       let parsedRoute = import.meta.env.DEV
         ? parse(route.name)
-        : parse(`${import.meta.env.BASE_URL}${route.name}`)
+        : parse(`${import.meta.env.BASE_URL.slice(0, -1)}${route.name}`)
       if (navigatePathname.match(parsedRoute.pattern)) {
         component = routes[index].component
         params = exec(navigatePathname, parsedRoute)
