@@ -12,6 +12,7 @@
   let headTitle = ''
   let title_ru = ''
   let title_original = ''
+  let description = ''
 
   $: {
     id
@@ -25,16 +26,15 @@
         headTitle = 'Не найдено'
         return
       }
-      ;({ title_ru, title_original } = release)
+      ;({ title_ru, title_original, description } = release)
       headTitle = `${title_ru} / ${title_original}`
     })
   }
-
-  onMount(onLoad)
 </script>
 
 <svelte:head>
   <title>{headTitle}</title>
+  <meta name="description" content={description} />
 </svelte:head>
 
 {#if release !== null}

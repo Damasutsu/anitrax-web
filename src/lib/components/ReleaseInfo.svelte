@@ -46,6 +46,9 @@
   }
 
   .poster {
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    object-position: center;
     -webkit-user-select: none;
     user-select: none;
     margin-bottom: 1.25rem;
@@ -117,6 +120,7 @@
   }
 
   .info {
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
     font-size: 1rem;
@@ -192,6 +196,18 @@
 
     .info {
       transform: translateY(5%);
+    }
+
+    .title-ru {
+      font-size: 1.5rem;
+    }
+
+    .title-original {
+      font-size: 1.25rem;
+    }
+
+    .description {
+      font-size: 1rem;
     }
   }
 </style>
