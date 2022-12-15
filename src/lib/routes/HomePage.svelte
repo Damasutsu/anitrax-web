@@ -8,6 +8,7 @@
     getInteresting,
     getByFilter
   } from '../api'
+  import ReleaseInfo from '../components/ReleaseInfo.svelte'
   import Loading from '../components/Loading.svelte'
 
   import { Swiper, SwiperSlide } from 'swiper/svelte'
@@ -69,32 +70,10 @@
       modules={[Autoplay]}>
       {#each interestingReleases as release}
         <SwiperSlide class="interesting-slide">
-          <div class="slide-background">
-            <img
-              class="poster-back"
-              src={release.image}
-              alt={release.title_ru} />
-          </div>
-          <div class="slider-wrappper container">
-            <div class="content">
-              <img class="poster" src={release.image} alt={release.title_ru} />
-              <div class="info">
-                <div class="slider-wrappper">
-                  <h1 class="title-ru" title={release.title_ru}>
-                    {release.title_ru}
-                  </h1>
-                  <h2 class="title-original" title={release.title_original}>
-                    {release.title_original}
-                  </h2>
-                  <p class="description">
-                    {release.description}
-                  </p>
-                </div>
-              </div>
-              <Navigate to="/release/{release.id}" class="watch"
-                >Смотреть</Navigate>
-            </div>
-          </div>
+          <ReleaseInfo {release} isReleasePage={false} let:release>
+            <Navigate to="/release/{release.id}" class="watch"
+              >Смотреть</Navigate>
+          </ReleaseInfo>
         </SwiperSlide>
       {/each}
     </Swiper>
@@ -201,92 +180,14 @@
     opacity: 0.5;
   }
 
-  .slide-background {
-    pointer-events: none;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  .slide-background::after {
-    content: '';
-    position: absolute;
-    top: -0.5rem;
-    left: -0.5rem;
-    right: -0.5rem;
-    bottom: -0.5rem;
-    pointer-events: none;
-    background: linear-gradient(
-        90deg,
-        #10110e 0%,
-        rgba(16, 17, 14, 0.8) 30%,
-        rgba(16, 17, 14, 0) 100%
-      ),
-      linear-gradient(180deg, rgba(16, 17, 14, 0) 50%, #10110e 100%);
-  }
-
-  .poster-back {
-    height: 100%;
-    width: 100%;
-    filter: blur(0.5rem) contrast(0.75);
-    transform: scale(1.1);
-    pointer-events: none;
-    transition-property: transform, filter;
-    transition-duration: 0.2s;
-  }
-
   .container {
     max-width: 1500px;
     width: 100%;
     margin: 0 auto;
   }
 
-  .slider-wrappper {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .content {
-    position: relative;
-    margin-left: 6rem;
-    margin-right: 2rem;
-    height: 100%;
-  }
-
-  :global(.interesting-slide) .poster {
-    max-height: 80%;
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-    max-width: 25%;
-    height: initial;
-  }
-
-  .info {
-    position: absolute;
-    top: 0;
-    font-size: 1rem;
-    transform: translateY(15%);
-    width: 100%;
-    max-width: 60%;
-    height: 100%;
-    overflow: hidden;
-    -webkit-mask: linear-gradient(180deg, white 0%, white 30%, transparent 45%);
-    mask: linear-gradient(180deg, white 0%, white 30%, transparent 45%);
-  }
-
   h1 {
     margin-bottom: 1.25rem;
-  }
-
-  :global(.interesting-slide) .title-ru {
-    margin-bottom: 0;
-    font-size: 2.5em;
-    font-weight: 700;
   }
 
   .title-ru,
@@ -295,16 +196,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  :global(.interesting-slide) .title-original {
-    font-size: 1.5em;
-  }
-
-  .description {
-    font-size: 1.25em;
-    opacity: 0.5;
-    margin-top: 0.25em;
   }
 
   :global(.watch) {
@@ -336,38 +227,9 @@
     }
   }
 
-  @media (max-width: 1199.98px) {
-    .info {
-      max-width: 100%;
-      font-size: 0.75rem;
-      transform: translateY(10%);
-    }
-
-    :global(.interesting-slide) .poster {
-      display: none;
-    }
-  }
-
   @media (max-width: 575.98px) {
-    .slider-wrappper {
-      margin: 0;
-      padding: 0 1rem;
-    }
-
-    .content {
-      margin: 0;
-    }
-
     .interesting-slider {
       margin: 0 -2rem;
-    }
-
-    .poster-back {
-      filter: blur(0.1rem) contrast(0.75);
-    }
-
-    .info {
-      transform: translateY(5%);
     }
 
     :global(.watch) {

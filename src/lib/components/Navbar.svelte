@@ -19,20 +19,20 @@
         <Navigate to="/filter" class="header-item">
           <span>Фильтр</span>
         </Navigate>
-        <Navigate to="/schedule" class="header-item">
-          <span>Расписание</span>
+        <Navigate to="/serials" class="header-item">
+          <span>Сериалы</span>
         </Navigate>
-        <Navigate to="/collections" class="header-item">
-          <span>Коллекции</span>
+        <Navigate to="/films" class="header-item">
+          <span>Фильмы</span>
         </Navigate>
         <Navigate to="/popular" class="header-item">
           <span>Популярное</span>
         </Navigate>
+        <Navigate to="/schedule" class="header-item">
+          <span>Расписание</span>
+        </Navigate>
         <Navigate to="/random" class="header-item">
           <span>Рандом</span>
-        </Navigate>
-        <Navigate to="/about" class="header-item">
-          <span>О сайте</span>
         </Navigate>
       </div>
       <SearchIcon
@@ -138,7 +138,7 @@
     display: none;
   }
 
-  @media (max-width: 991.98px) {
+  @media (max-width: 1199.98px) {
     header {
       display: none;
     }

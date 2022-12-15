@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { getById } from '../api/release'
   import Loading from '../components/Loading.svelte'
+  import ReleaseInfo from '../components/ReleaseInfo.svelte'
 
   export let id
 
@@ -36,25 +37,15 @@
   <title>{headTitle}</title>
 </svelte:head>
 
-<div class="release_wrapper">
-  {#if release !== null}
-    <h1>{release.title_ru}</h1>
-    <h2>
-      {release.title_original}
-    </h2>
-  {:else if code !== 0}
-    <div class="not_found">Не найдено</div>
-  {:else}
-    <Loading />
-  {/if}
-</div>
+{#if release !== null}
+  <ReleaseInfo {release} />
+{:else if code !== 0}
+  <div class="not_found">Не найдено</div>
+{:else}
+  <Loading />
+{/if}
 
 <style>
-  .release_wrapper {
-    width: 100%;
-    height: 100%;
-  }
-
   .not_found {
     position: absolute;
     left: 50%;
