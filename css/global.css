@@ -33,3 +33,13 @@ svg {
 i.fa::before {
   font-size: 1.5rem;
 }
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d48f30;
+}
