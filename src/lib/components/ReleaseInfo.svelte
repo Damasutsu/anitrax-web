@@ -120,7 +120,7 @@
   }
 
   .info {
-    text-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 12px black;
     position: absolute;
     top: 0;
     font-size: 1rem;
