@@ -53,11 +53,10 @@
     user-select: none;
     margin-bottom: 1.25rem;
     border-radius: 0.75rem;
-    max-height: 80%;
+    max-height: 60%;
     position: absolute;
     right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 6rem;
     z-index: 1;
     max-width: 25%;
     height: initial;
@@ -122,9 +121,8 @@
   .info {
     text-shadow: 0 0 12px black;
     position: absolute;
-    top: 0;
+    top: 6rem;
     font-size: 1rem;
-    transform: translateY(15%);
     width: 100%;
     max-width: 60%;
     height: 100%;
@@ -162,7 +160,6 @@
     .info {
       max-width: 100%;
       font-size: 0.75rem;
-      transform: translateY(10%);
     }
 
     .poster {
@@ -192,10 +189,6 @@
 
     .poster-back {
       filter: blur(0.1rem) contrast(0.75);
-    }
-
-    .info {
-      transform: translateY(5%);
     }
 
     .title-ru {
