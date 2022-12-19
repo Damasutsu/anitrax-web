@@ -43,3 +43,19 @@ i.fa::before {
 ::-webkit-scrollbar-thumb {
   background: #d48f30;
 }
+
+.loading {
+  animation: loading 0.5s infinite alternate;
+}
+
+@keyframes loading {
+  from {
+    color: #555555;
+    background-color: #555555;
+  }
+
+  to {
+    color: #333333;
+    background-color: #333333;
+  }
+}

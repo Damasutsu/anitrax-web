@@ -9,6 +9,7 @@
     getByFilter
   } from '../api'
   import ReleaseInfo from '../components/ReleaseInfo.svelte'
+  import ReleaseCard from '../components/ReleaseCard.svelte'
   import Loading from '../components/Loading.svelte'
 
   import { Swiper, SwiperSlide } from 'swiper/svelte'
@@ -82,21 +83,13 @@
     <section class="best container">
       <h1>Лучшие в этом году</h1>
       <section class="best-slider">
-        <Swiper slidesPerView={'auto'} spaceBetween={36}>
+        <Swiper
+          slidesPerView={'auto'}
+          spaceBetween={32}
+          breakpoints={{ 575.98: { spaceBetween: 24 } }}>
           {#each bestReleases as release}
-            <SwiperSlide title={release.title_ru}>
-              <Navigate to="/release/{release.id}">
-                <img
-                  class="poster"
-                  src={release.image}
-                  alt={release.title_ru} />
-                <span class="title-ru" title={release.title_ru}>
-                  {release.title_ru}
-                </span>
-                <span class="title-original" title={release.title_original}>
-                  {release.title_original}
-                </span>
-              </Navigate>
+            <SwiperSlide>
+              <ReleaseCard {release} />
             </SwiperSlide>
           {/each}
         </Swiper>
@@ -107,21 +100,13 @@
     <section class="ongoing container">
       <h1>Сейчас выходят</h1>
       <section class="ongoing-slider">
-        <Swiper slidesPerView={'auto'} spaceBetween={36}>
+        <Swiper
+          slidesPerView={'auto'}
+          spaceBetween={32}
+          breakpoints={{ 575.98: { spaceBetween: 24 } }}>
           {#each ongoingReleases as release}
-            <SwiperSlide title={release.title_ru}>
-              <Navigate to="/release/{release.id}">
-                <img
-                  class="poster"
-                  src={release.image}
-                  alt={release.title_ru} />
-                <span class="title-ru" title={release.title_ru}>
-                  {release.title_ru}
-                </span>
-                <span class="title-original" title={release.title_original}>
-                  {release.title_original}
-                </span>
-              </Navigate>
+            <SwiperSlide>
+              <ReleaseCard {release} />
             </SwiperSlide>
           {/each}
         </Swiper>
@@ -151,33 +136,7 @@
   }
 
   :global(.swiper-slide) {
-    width: 180px;
-  }
-
-  :global(.swiper-slide) > :global(a) {
-    display: flex;
-    flex-direction: column;
-    width: 180px;
-    height: 320px;
-    overflow: hidden;
-  }
-
-  :global(.swiper-slide) .poster {
-    -webkit-user-select: none;
-    user-select: none;
-    width: 100%;
-    height: 250px;
-    margin-bottom: 1.25rem;
-    border-radius: 0.75rem;
-  }
-
-  :global(.swiper-slide) .title-ru {
-    font-size: 1.125rem;
-  }
-
-  :global(.swiper-slide) .title-original {
-    font-size: 1rem;
-    opacity: 0.5;
+    width: 10rem;
   }
 
   .container {
@@ -188,14 +147,6 @@
 
   h1 {
     margin-bottom: 1.25rem;
-  }
-
-  .title-ru,
-  .title-original {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   :global(.watch) {
@@ -221,6 +172,12 @@
     padding-bottom: 2rem;
   }
 
+  @media (min-width: 1200px) {
+    :global(.swiper-slide) {
+      width: 12.5rem;
+    }
+  }
+
   @media (min-width: 992px) {
     .interesting-slider {
       margin-top: -3.5625rem;
@@ -230,6 +187,10 @@
   @media (max-width: 575.98px) {
     .interesting-slider {
       margin: 0 -2rem;
+    }
+
+    :global(.swiper-slide) {
+      width: 7.5rem;
     }
 
     :global(.watch) {
