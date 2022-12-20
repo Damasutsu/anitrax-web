@@ -41,7 +41,7 @@
 
   @media (max-width: 575.98px) {
     .main_wrapper {
-      margin: 0 2rem;
+      margin: 0 1rem;
     }
 
     main {

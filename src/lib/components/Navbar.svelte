@@ -9,7 +9,6 @@
 <header>
   <div class="header-content">
     <Navigate to="/" class="header-brand">
-      <div class="brand-icon" />
       <div class="brand-title">Ani<span class="brand">Trax</span></div>
     </Navigate>
     {#if isInSearch}
@@ -98,23 +97,16 @@
     align-items: center;
   }
 
-  .brand-icon {
-    width: 2.5rem;
-    aspect-ratio: 1/1;
-    background-image: url('/favicon.png');
-    background-size: contain;
-    margin-right: 0.75rem;
-  }
-
   .brand-title {
     font-size: 1.5rem;
+    font-weight: 700;
   }
 
   .brand {
-    color: #d48f30;
-    background: white;
+    color: black;
+    background: #d48f30;
     padding: 0rem 0.15rem;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     margin-left: 0.1rem;
   }
 

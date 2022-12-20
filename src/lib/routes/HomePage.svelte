@@ -82,34 +82,20 @@
   {#if bestReleases.length !== 0}
     <section class="best container">
       <h1>Лучшие в этом году</h1>
-      <section class="best-slider">
-        <Swiper
-          slidesPerView={'auto'}
-          spaceBetween={32}
-          breakpoints={{ 575.98: { spaceBetween: 24 } }}>
-          {#each bestReleases as release}
-            <SwiperSlide>
-              <ReleaseCard {release} />
-            </SwiperSlide>
-          {/each}
-        </Swiper>
+      <section class="best-slider slider">
+        {#each bestReleases as release}
+          <ReleaseCard {release} />
+        {/each}
       </section>
     </section>
   {/if}
   {#if ongoingReleases.length !== 0}
     <section class="ongoing container">
       <h1>Сейчас выходят</h1>
-      <section class="ongoing-slider">
-        <Swiper
-          slidesPerView={'auto'}
-          spaceBetween={32}
-          breakpoints={{ 575.98: { spaceBetween: 24 } }}>
-          {#each ongoingReleases as release}
-            <SwiperSlide>
-              <ReleaseCard {release} />
-            </SwiperSlide>
-          {/each}
-        </Swiper>
+      <section class="ongoing-slider slider">
+        {#each ongoingReleases as release}
+          <ReleaseCard {release} />
+        {/each}
       </section>
     </section>
   {/if}
@@ -172,6 +158,20 @@
     padding-bottom: 2rem;
   }
 
+  .slider {
+    white-space: nowrap;
+    padding-bottom: 1rem;
+    overflow-y: hidden;
+  }
+
+  .slider > :global(a) {
+    margin-right: 2rem;
+  }
+
+  .slider > :global(a):last-child {
+    margin-right: 0;
+  }
+
   @media (min-width: 1200px) {
     :global(.swiper-slide) {
       width: 12.5rem;
@@ -186,7 +186,7 @@
 
   @media (max-width: 575.98px) {
     .interesting-slider {
-      margin: 0 -2rem;
+      margin: 0 -1rem;
     }
 
     :global(.swiper-slide) {
@@ -197,6 +197,17 @@
       left: 50%;
       transform: translate(-50%, 50%);
       font-size: 0.8125rem;
+    }
+
+    .slider {
+      white-space: normal;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-bottom: 0;
+    }
+
+    .slider > :global(a) {
+      margin-right: 0;
     }
   }
 

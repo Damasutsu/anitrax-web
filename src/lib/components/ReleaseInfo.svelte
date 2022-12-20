@@ -175,7 +175,7 @@
 
   @media (max-width: 575.98px) {
     .release-wrapper:not(.slide) {
-      margin: 0 -2rem;
+      margin: 0 -1rem;
     }
 
     .wrappper {
