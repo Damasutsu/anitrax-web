@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --port 8080",
-    "build": "vite build && cd dist && copy index.html 404.html",
+    "build": "vite build",
     "deploy": "sh deploy.sh"
   },
   "devDependencies": {

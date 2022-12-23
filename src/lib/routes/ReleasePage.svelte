@@ -1,10 +1,10 @@
 <script>
-  import { onMount } from 'svelte'
   import { getById } from '../api/release'
   import Loading from '../components/Loading.svelte'
   import ReleaseInfo from '../components/ReleaseInfo.svelte'
+  import NotFoundPage from './NotFoundPage.svelte'
 
-  export let id
+  export let id = null
 
   let release = null
   let code = 0
@@ -15,7 +15,7 @@
   let description = ''
 
   $: {
-    id
+    console.log(id)
     onLoad()
   }
 
@@ -34,23 +34,15 @@
 
 <svelte:head>
   <title>{headTitle}</title>
-  <meta name="description" content={description} />
+  {#if description !== ''}
+    <meta name="description" content={description} />
+  {/if}
 </svelte:head>
 
 {#if release !== null}
   <ReleaseInfo {release} />
 {:else if code !== 0}
-  <div class="not_found">Не найдено</div>
+  <NotFoundPage />
 {:else}
   <Loading />
 {/if}
-
-<style>
-  .not_found {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-  }
-</style>

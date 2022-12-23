@@ -19,7 +19,11 @@
             {release.title_original}
           </h2>
           <p class="description">
-            {release.description}
+            {#if release.description.length > 0}
+              {release.description}
+            {:else}
+              Нет описания
+            {/if}
           </p>
         </div>
       </div>
@@ -29,13 +33,16 @@
 </div>
 
 <style>
+  .release-wrapper {
+    height: calc(100 * var(--vh));
+  }
+
   .release-wrapper:not(.slide) {
     position: relative;
     margin-left: -6rem;
     margin-right: -2.5rem;
     display: flex;
     overflow: hidden;
-    max-height: 700px;
     -webkit-mask: linear-gradient(
       180deg,
       white 0%,
@@ -88,6 +95,8 @@
   }
 
   .poster-back {
+    object-fit: cover;
+    object-position: center;
     height: 100%;
     width: 100%;
     filter: blur(0.5rem) contrast(0.75);

@@ -11,18 +11,20 @@
     description = null
 
   $: {
-    ;({
-      image: poster,
-      title_ru: titleRu,
-      title_original: titleOriginal,
-      description,
-      id
-    } = release)
+    if (release !== null) {
+      ;({
+        image: poster,
+        title_ru: titleRu,
+        title_original: titleOriginal,
+        description,
+        id
+      } = release)
+    }
   }
 
   onMount(() => {
     if (release !== null) return
-    if (id === null) throw new Error('No data for render')
+    if (id === null) return
     getReleaseById(id)
       .then(({ release }) => {
         ;({
@@ -95,7 +97,9 @@
   }
 
   .card-title,
-  .card-subtitle {
+  .card-subtitle,
+  .card-description {
+    display: block;
     width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -108,13 +112,18 @@
     opacity: 0.5;
   }
 
+  .card-title.loading {
+    margin-bottom: 0.25em;
+  }
+
   .card-title.loading,
   .card-subtitle.loading {
-    height: 1.25em;
+    height: 1em;
   }
 
   .card-description.loading {
     height: 5em;
+    margin-top: 0.25em;
   }
 
   @media (min-width: 1200px) {

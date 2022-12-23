@@ -62,13 +62,7 @@
   <Loading />
 {:else}
   <section class="interesting-slider">
-    <Swiper
-      loop={true}
-      autoplay={{
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-      }}
-      modules={[Autoplay]}>
+    <Swiper loop={true}>
       {#each interestingReleases as release}
         <SwiperSlide class="interesting-slide">
           <ReleaseInfo {release} isReleasePage={false} let:release>
@@ -111,7 +105,7 @@
 
   .interesting-slider :global(.interesting-slide) {
     overflow: hidden;
-    max-height: 700px;
+    height: calc(100 * var(--vh));
     -webkit-mask: linear-gradient(
       180deg,
       white 0%,
@@ -185,6 +179,10 @@
   }
 
   @media (max-width: 575.98px) {
+    :global(.main_wrapper) {
+      padding-bottom: 1.5rem;
+    }
+
     .interesting-slider {
       margin: 0 -1rem;
     }

@@ -11,6 +11,11 @@
     window.sessionStorage.removeItem('redirect')
     redirectTo(redirect.substring(12))
   }
+
+  let resizeObserver = new ResizeObserver(() => {
+    document.documentElement.style.setProperty('--vh', `${innerHeight / 100}px`)
+  })
+  resizeObserver.observe(document.documentElement)
 </script>
 
 <Navbar />
@@ -42,11 +47,6 @@
   @media (max-width: 575.98px) {
     .main_wrapper {
       margin: 0 1rem;
-    }
-
-    main {
-      padding-bottom: 4rem;
-      margin-bottom: -4rem;
     }
   }
 </style>
