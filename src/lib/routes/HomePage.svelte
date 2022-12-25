@@ -26,7 +26,7 @@
     getInteresting().then((interesting) => {
       const promises = []
       interesting.content.forEach((release) => {
-        promises.push(getReleaseById(release.action))
+        if (release.type === 1) promises.push(getReleaseById(release.action))
       })
       Promise.all(promises).then((releases) => {
         releases.forEach(({ release }) => {
