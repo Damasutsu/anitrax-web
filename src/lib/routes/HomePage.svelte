@@ -39,8 +39,8 @@
     getByFilter({
       page: 0,
       sort: 1,
-      start_year: 2022,
-      end_year: 2022
+      start_year: (new Date).getFullYear(),
+      end_year: (new Date).getFullYear()
     }).then((best) => {
       bestReleases = [...best.content]
     })
